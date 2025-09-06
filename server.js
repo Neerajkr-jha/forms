@@ -20,10 +20,8 @@ mongoose
 
 // Define schema
 const registrationSchema = new mongoose.Schema({
-  name: String,
-  branch: String,
-  gender: String,
-  city: String,
+  username: String,
+  password:String,
 });
 
 // Create model
@@ -38,16 +36,16 @@ app.get("/api/message", (req, res) => {
 
 
 app.post("/api/register", async(req, res) => {
-  const { name, branch, gender, city } = req.body;
+  const { username,password } = req.body;
 
   try {
-    const newRegistration = new Registration({ name, branch, gender, city });
+    const newRegistration = new Registration({username,password });
     await newRegistration.save();
 
     console.log("sae to DB :", req.body);
 
     res.json({
-      message: `Registration successful for ${name} (${branch}, ${gender}, ${city})`,
+      message: `Registration successful for ${username} (${password})`,
     });
   } catch (error) {
     console.log("error saving to DB:", error);
